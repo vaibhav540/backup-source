@@ -1,0 +1,38 @@
+{
+  "name": "material-ui-vite",
+  "version": "5.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "latest",
+    "@emotion/styled": "latest",
+    "@mui/icons-material": "^6.4.6",
+    "@mui/material": "latest",
+    "axios": "^1.7.9",
+    "crypto-js": "^4.2.0",
+    "date-fns": "^4.1.0",
+    "framer-motion": "^12.4.7",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-icons": "^5.5.0",
+    "react-markdown": "^10.0.0",
+    "react-pdf": "^9.2.1",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.2.0",
+    "react-zoom-pan-pinch": "^3.7.0",
+    "redux-persist": "^6.0.0",
+    "remark-gfm": "^4.0.1",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "latest",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.0.8",
+    "vite": "latest"
+  }
+}
