@@ -268,6 +268,7 @@ export default function CombinedTypingEffect({
   currentSpeakingIndex,
   ttsState,
   onTTS,
+  reconstructedQuestion,
 }) {
   const theme = useTheme();
   const [page, setPage] = useState(1);
@@ -324,7 +325,7 @@ export default function CombinedTypingEffect({
     setSelectedLang('EN'); // Reset to English for new conversation
     setTranslatedResponse(null); // Clear any previous translations
     const payload = {
-      question: question,
+      question: reconstructedQuestion || question,
       sub_segment: selectedTab,
       session_id: sessionID,
       keyword: keyword,

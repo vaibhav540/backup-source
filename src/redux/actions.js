@@ -79,3 +79,14 @@ export const setEnvironment = (environment) => {
       type: "CLEAR_UPLOADED_IMAGE",
     };
   };
+
+export const SET_RECONSTRUCTED_QUESTION = "SET_RECONSTRUCTED_QUESTION";
+export const CLEAR_RECONSTRUCTED_QUESTION = "CLEAR_RECONSTRUCTED_QUESTION";
+
+export const setReconstructedQuestion = (question) => ({
+  type: SET_RECONSTRUCTED_QUESTION,
+  payload: question,
+});
+export const clearReconstructedQuestion = () => ({
+  type: CLEAR_RECONSTRUCTED_QUESTION,
+});

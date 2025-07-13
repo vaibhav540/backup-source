@@ -3,6 +3,7 @@ const initialState = {
   isSidebarOpen: true,
   isFirstLoading: true,
   environment: 'development',
+  reconstructedQuestion: null,
 };
 
 const chatInitialState = {
@@ -72,6 +73,7 @@ export const reducer = (state = initialState, action) => {
 //   }
 // };
 import { v4 as uuidv4 } from 'uuid';
+import { SET_RECONSTRUCTED_QUESTION, CLEAR_RECONSTRUCTED_QUESTION } from "./actions";
 
 export const chatReducer = (state = chatInitialState, action) => {
   switch (action.type) {
@@ -116,6 +118,10 @@ export const chatReducer = (state = chatInitialState, action) => {
         ...state,
         uploadedImage: null,
       };
+    case SET_RECONSTRUCTED_QUESTION:
+      return { ...state, reconstructedQuestion: action.payload };
+    case CLEAR_RECONSTRUCTED_QUESTION:
+      return { ...state, reconstructedQuestion: null };
     default:
       return state;
   }

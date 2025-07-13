@@ -27,7 +27,7 @@ import { useDispatch } from "react-redux";
 import { setIsFirstLoading,setSessionID } from "../../redux/actions.js";
 import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 
-const ChatManager = ({selectedTab, segment}) => {
+const ChatManager = ({selectedTab, segment, reconstructedQuestion}) => {
 
 
   const messages = useSelector((state) => state.chat.chat);
@@ -255,11 +255,12 @@ const ChatManager = ({selectedTab, segment}) => {
       if (!selectedTab) return;
       if (q.trim() === '') return;
       dispatch(setIsFirstLoading(false));
-      const inputPrompt = q.trim();
+      // Use reconstructedQuestion if present
+      const inputPrompt = reconstructedQuestion || q.trim();
       const tempMessages = [...messages];
 
       // show loading placeholder
-      addMessage([...messages, { input_prompt: inputPrompt, text: undefined, images: [], description: undefined }]);
+      addMessage([...messages, { input_prompt: q.trim(), text: undefined, images: [], description: undefined }]);
 
       try {
         const payload = {
@@ -276,7 +277,7 @@ const ChatManager = ({selectedTab, segment}) => {
         }
 
         const newStructured = {
-          input_prompt: inputPrompt,
+          input_prompt: q.trim(),
           text: response?.[segment]?.Type?.join('\n') || 'No keywords found',
           session_id: response?.session_id,
           created_on: new Date().toISOString(),
@@ -293,7 +294,7 @@ const ChatManager = ({selectedTab, segment}) => {
       } catch (error) {
         console.error(error);
         const errorMessage = {
-          input_prompt: inputPrompt,
+          input_prompt: q.trim(),
           text: 'Something Went Wrong',
           images: [],
           description: undefined
@@ -360,6 +361,7 @@ const ChatManager = ({selectedTab, segment}) => {
             currentSpeakingIndex={currentSpeakingIndex}
             ttsState={ttsState}
             onTTS={handleTTS}
+            reconstructedQuestion={reconstructedQuestion}
           />
         </>
       );
@@ -531,6 +533,7 @@ const ChatManager = ({selectedTab, segment}) => {
         currentSpeakingIndex={currentSpeakingIndex}
         ttsState={ttsState}
         onTTS={handleTTS}
+        reconstructedQuestion={reconstructedQuestion}
       />
     </Box>
   )}

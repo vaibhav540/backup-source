@@ -553,7 +553,7 @@ import { useDispatch, useSelector } from "react-redux";
 import chatService from "../services/chat.service";
 import { useTheme } from "../context/ThemeContext";
 import useChat from "../hooks/useChat";
-import { setIsFirstLoading, setSegment, setSessionID, setUploadedImage, clearUploadedImage } from "../redux/actions";
+import { setIsFirstLoading, setSegment, setSessionID, setUploadedImage, clearUploadedImage, setReconstructedQuestion, clearReconstructedQuestion } from "../redux/actions";
 import ChatManager from "./shared/ChatManager";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
@@ -565,6 +565,7 @@ const ChatInterface = () => {
   const messages = useSelector((state) => state.chat.chat);
   const isFirstLoad = useSelector((state) => state.account.isFirstLoading);
   const uploadedImage = useSelector((state) => state.chat.uploadedImage);
+  const reconstructedQuestion = useSelector((state) => state.chat.reconstructedQuestion);
   const { isDarkMode } = useTheme();
   const dispatch = useDispatch();
   const { addMessage, addMessageToChat, startNewChat } = useChat();
@@ -606,6 +607,7 @@ const ChatInterface = () => {
   useEffect(() => {
     setInput("");
     dispatch(clearUploadedImage());
+    dispatch(clearReconstructedQuestion());
   }, [sessionID, dispatch]);
 
   const startRecording = async () => {
@@ -779,6 +781,7 @@ const ChatInterface = () => {
     setShowVariantModal(false);
     setInput("");
     dispatch(clearUploadedImage());
+    dispatch(clearReconstructedQuestion());
   };
 
   const handleSend = async () => {
@@ -803,12 +806,16 @@ const ChatInterface = () => {
         // Always use development environment for image upload
         const imageResponse = await chatService.uploadImage(imagePayload, "development");
         finalInputPrompt = imageResponse.reconstructed_user_query || input.trim();
+        dispatch(setReconstructedQuestion(finalInputPrompt));
         dispatch(clearUploadedImage());
       } catch (error) {
         console.error('Error processing image:', error);
         finalInputPrompt = input.trim();
+        dispatch(setReconstructedQuestion(null));
         dispatch(clearUploadedImage());
       }
+    } else {
+      dispatch(setReconstructedQuestion(null));
     }
 
     // UI should always show the original question, and show uploaded image preview if present
@@ -848,6 +855,8 @@ const ChatInterface = () => {
       addMessageToChat(structuredMessage);
       setLoading(false);
       setInput("");
+      // Optionally clear reconstructedQuestion here if you want it per-message
+      // dispatch(clearReconstructedQuestion());
     } catch (error) {
       setLoading(false);
       const structuredMessage = {
@@ -876,6 +885,7 @@ const ChatInterface = () => {
       startNewChat();
       setInput("");
       dispatch(clearUploadedImage());
+      dispatch(clearReconstructedQuestion());
       previousTabRef.current = selectedTab;
     }
   }, [selectedTab, startNewChat, dispatch]);
@@ -1003,7 +1013,7 @@ const ChatInterface = () => {
       )}
 
       <AnimatePresence>
-        {!isFirstLoad && <ChatManager messages={messages} selectedTab={selectedTab} segment={segment}/>}
+        {!isFirstLoad && <ChatManager messages={messages} selectedTab={selectedTab} segment={segment} reconstructedQuestion={reconstructedQuestion}/>}
       </AnimatePresence>
 
       <Box
