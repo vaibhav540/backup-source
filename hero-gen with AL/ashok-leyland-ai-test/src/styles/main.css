@@ -1,0 +1,141 @@
+/* Global layout styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Fix MUI Drawer Paper for sidebar layout */
+.MuiDrawer-paper {
+  position: fixed !important;
+  top: 57px !important; /* Height of your navbar */
+  left: 0 !important;
+  height: calc(100vh - 57px) !important;
+  box-shadow: none !important;
+  border-right: 1px solid #e0e0e0 !important;
+  background: #fff !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  z-index: 1200 !important; /* Should be below navbar */
+}
+
+.custom-markdown p {
+  margin: 0px;
+}
+
+.custom-h1 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 8px;
+}
+.custom-h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 8px;
+}
+.custom-h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 8px;
+}
+.custom-h4 {
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 8px;
+}
+.custom-h5 {
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 8px;
+}
+.loader-container {
+  position: relative;
+  width: 31px;
+  height: 31px;
+}
+
+.loader {
+  width: 31px;
+  height: 31px;
+  border-radius: 50%;
+  position: relative;
+  animation: rotate 1s linear infinite;
+}
+
+.loader::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0px;
+  border-radius: 50%;
+  border: 3.1px solid red;
+  animation: prixClipFix 1s linear infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes prixClipFix {
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+  }
+  25% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  }
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
+  }
+  75% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+  }
+}
+
+.loader-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 22px; /* Adjust size */
+  height: 22px;
+}
+
+.gradient-text {
+  background: linear-gradient(
+    to top,
+    red 0%,
+    black 100%,
+    red 100%,
+    black 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.MuiBox-root .css-awrsrd{
+  margin-top: 70px;
+  
+}
+
+
+
+
