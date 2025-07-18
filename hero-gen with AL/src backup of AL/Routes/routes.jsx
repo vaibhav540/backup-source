@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import ProtectedRoute from "../components/auth/ProtectedRoute";
 import Home from "../pages/Home";
 import Main from "../components/Main";
+import AdminDashboard from "../pages/AdminDashboard";
 
 const MainRoutes = () => {
   return (
@@ -15,7 +16,7 @@ const MainRoutes = () => {
         }
       />
       <Route
-        path="/main/image-query"
+        path="/main/service-manual"
         element={
           <ProtectedRoute>
             <Home />
@@ -23,14 +24,21 @@ const MainRoutes = () => {
         }
       />
       <Route
-        path="/main/video-query"
+        path="/main/operator-handbook"
         element={
           <ProtectedRoute>
-           <Home/>
+            <Home />
           </ProtectedRoute>
         }
       />
-     
+      <Route
+        path="/admin-dashboard"
+        element={
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <AdminDashboard />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 };

@@ -14,7 +14,6 @@ import chatService from "../services/chat.service";
 import useChat from "../hooks/useChat";
 import { setIsFirstLoading, setSessionID } from "../redux/actions";
 import ChatManager from "./shared/ChatManager";
-import sampleResponse from "../constant/sampleResponse.json";
 
 const ChatInterface = () => {
   const isSidebarOpen = useSelector((state) => state.account.isSidebarOpen);
@@ -184,7 +183,7 @@ const ChatInterface = () => {
                 >
                   Hello,
                 </Typography>
-                Hero User's
+                User
               </Typography>
             </Box>
           )}
